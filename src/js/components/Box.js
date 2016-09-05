@@ -1,13 +1,35 @@
 import React from "react";
+import BoardStore from "../stores/BoardStore"
 
 export default class Box extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { }
+    this.render = this.render.bind(this);
+    this.playerRender = this.playerRender.bind(this);
+  }
+
+  mouseIn(e){
+
+    if (this.props.value === 0) {
+      if (this.props.playerTurn) {
+        e.target.innerHTML='<i class = "crossIcon"></i>'
+      }else {
+        e.target.innerHTML='<i class = "circleIcon"></i>'
+      }
+    }
+  }
+
+  mouseOut(e){
+    if (this.props.value === 0) {
+      if (this.props.playerTurn) {
+        e.target.innerHTML=''
+      }else {
+        e.target.innerHTML=''
+      }
+    }
   }
 
   clickHandler(e) {
-    // console.log(this.props.coord);
     this.props.updateEvent(this.props.coord);
   }
 
@@ -20,16 +42,19 @@ export default class Box extends React.Component {
       return (
         <div id="playerTwo" class="content"><i class="circleIcon"></i></div>
       )
-    } else {
+    } else if(this.props.gameState && this.props.value === 0) {
       return (
-        <div class="content" onClick={this.clickHandler.bind(this)}></div>
+        <div class="content" onClick={this.clickHandler.bind(this)} onMouseEnter={this.mouseIn.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+          <h1></h1>
+        </div>
       )
     }
   }
 
+
   render() {
     return (
-      <div className="box" ref={this.props.ref}>
+      <div className="box" >
         {this.playerRender()}
       </div>
     )

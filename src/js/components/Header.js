@@ -13,14 +13,15 @@ export default class Header extends React.Component {
     }
   }
   render() {
+    console.log(Scoreboard);
     return(
       <div className="columns five">
         <h2 id="title">{this.props.title}</h2>
         {this.gameStatus()}
         <div className="scoreboard">
           <h5>Score</h5>
-          <Scoreboard player="Player One" score="score"/>
-          <Scoreboard player="Player Two" score="score"/>
+          <Scoreboard player="Player One" score={this.props.score1}/>
+          <Scoreboard player="Player Two" score={this.props.score2}/>
         </div>
       </div>
     );
